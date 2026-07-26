@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect"
+import { Link } from "react-router-dom"
 
 export function Hero() {
   return (
@@ -31,8 +32,9 @@ export function Hero() {
           </p>
 
           <div>
-            <Button size="lg">Shop Now</Button>
-          </div>
+<Link to="/shop">
+  <Button size="lg">Shop Now</Button>
+</Link>          </div>
         </div>
 
       </div>

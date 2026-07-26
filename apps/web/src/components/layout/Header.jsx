@@ -24,7 +24,7 @@ export function Header() {
 
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
   <Link to="/" className="hover:text-neutral-500">Home</Link>
-  <Link to="/shop" className="hover:text-neutral-500">Shop</Link>
+  <HashLink smooth to="/#new-arrivals" className="hover:text-neutral-500">New Arrivals</HashLink>
   <HashLink smooth to="/#collections" className="hover:text-neutral-500">Collections</HashLink>
   <HashLink smooth to="/#about" className="hover:text-neutral-500">About</HashLink>
   <HashLink smooth to="/#contact" className="hover:text-neutral-500">Contact</HashLink>
