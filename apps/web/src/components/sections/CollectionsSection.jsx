@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { collections } from "@/data/Collections"
+import { collections } from "@/data/collections"
 
 export function CollectionsSection() {
   return (
