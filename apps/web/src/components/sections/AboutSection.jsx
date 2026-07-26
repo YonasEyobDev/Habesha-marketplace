@@ -20,7 +20,7 @@ export function AboutSection() {
           </p>
         </div>
 
-        <div className="w-full max-h-[500px] aspect-[4/5] md:aspect-auto rounded-lg overflow-hidden">
+        <div className="w-full max-h-500px aspect-4/5 md:aspect-auto rounded-lg overflow-hidden">
           <img
             src="/HabeshaKemis.jpg"
             alt="Habesha artisan craftsmanship"
