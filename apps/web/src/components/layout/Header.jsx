@@ -1,12 +1,21 @@
+import { useState } from "react"
 import { Link } from "react-router-dom"
-import { Search, Heart, ShoppingBag, User } from "lucide-react"
+import { HashLink } from "react-router-hash-link"
+import { Search, Heart, ShoppingBag, User, Menu } from "lucide-react"
 import { useCart } from "@/context/CartContext"
 import { useAuth } from "@/context/AuthContext"
-import { HashLink } from "react-router-hash-link"
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetClose,
+} from "@/components/ui/sheet"
 
 export function Header() {
   const { cartCount } = useCart()
   const { user, logout } = useAuth()
+  const [menuOpen, setMenuOpen] = useState(false)
 
   return (
     <header className="w-full border-b border-neutral-200">
@@ -18,33 +27,43 @@ export function Header() {
 
       {/* Main nav */}
       <div className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto">
+        {/* Mobile menu button — visible only below md */}
+        <button
+          className="md:hidden"
+          aria-label="Open menu"
+          onClick={() => setMenuOpen(true)}
+        >
+          <Menu className="w-6 h-6" />
+        </button>
+
         <Link to="/" className="text-2xl font-bold tracking-tight">
           Habesha.
         </Link>
 
+        {/* Desktop nav — unchanged */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-  <Link to="/" className="hover:text-neutral-500">Home</Link>
-  <HashLink smooth to="/#new-arrivals" className="hover:text-neutral-500">New Arrivals</HashLink>
-  <HashLink smooth to="/#collections" className="hover:text-neutral-500">Collections</HashLink>
-  <HashLink smooth to="/#about" className="hover:text-neutral-500">About</HashLink>
-  <HashLink smooth to="/#contact" className="hover:text-neutral-500">Contact</HashLink>
-</nav>
+          <Link to="/" className="hover:text-neutral-500">Home</Link>
+          <HashLink smooth to="/#new-arrivals" className="hover:text-neutral-500">Shop</HashLink>
+          <HashLink smooth to="/#collections" className="hover:text-neutral-500">Collections</HashLink>
+          <HashLink smooth to="/#about" className="hover:text-neutral-500">About</HashLink>
+          <HashLink smooth to="/#contact" className="hover:text-neutral-500">Contact</HashLink>
+        </nav>
 
         <div className="flex items-center gap-4">
-          <button aria-label="Search">
+          <button aria-label="Search" className="hidden md:inline-block">
             <Search className="w-5 h-5" />
           </button>
 
-          <button aria-label="Wishlist">
+          <button aria-label="Wishlist" className="hidden md:inline-block">
             <Heart className="w-5 h-5" />
           </button>
 
           {user ? (
-            <button onClick={logout} className="text-sm hover:text-neutral-500">
+            <button onClick={logout} className="text-sm hover:text-neutral-500 hidden md:inline-block">
               Hi, {user.name}
             </button>
           ) : (
-            <Link to="/login" aria-label="Account">
+            <Link to="/login" aria-label="Account" className="hidden md:inline-block">
               <User className="w-5 h-5" />
             </Link>
           )}
@@ -57,6 +76,47 @@ export function Header() {
           </Link>
         </div>
       </div>
+
+      {/* Mobile drawer */}
+      <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
+        <SheetContent side="left" className="w-72">
+          <SheetHeader>
+            <SheetTitle>Habesha.</SheetTitle>
+          </SheetHeader>
+
+          <nav className="flex flex-col gap-1 mt-6 px-4">
+            <SheetClose asChild>
+              <Link to="/" className="py-3 border-b border-neutral-100">Home</Link>
+            </SheetClose>
+            <SheetClose asChild>
+              <HashLink smooth to="/#new-arrivals" className="py-3 border-b border-neutral-100">Shop</HashLink>
+            </SheetClose>
+            <SheetClose asChild>
+              <HashLink smooth to="/#collections" className="py-3 border-b border-neutral-100">Collections</HashLink>
+            </SheetClose>
+            <SheetClose asChild>
+              <HashLink smooth to="/#about" className="py-3 border-b border-neutral-100">About</HashLink>
+            </SheetClose>
+            <SheetClose asChild>
+              <HashLink smooth to="/#contact" className="py-3 border-b border-neutral-100">Contact</HashLink>
+            </SheetClose>
+
+            <div className="flex items-center gap-6 mt-6 px-1">
+              <button aria-label="Search"><Search className="w-5 h-5" /></button>
+              <button aria-label="Wishlist"><Heart className="w-5 h-5" /></button>
+              {user ? (
+                <button onClick={() => { logout(); setMenuOpen(false) }} className="text-sm">
+                  Hi, {user.name}
+                </button>
+              ) : (
+                <SheetClose asChild>
+                  <Link to="/login" aria-label="Account"><User className="w-5 h-5" /></Link>
+                </SheetClose>
+              )}
+            </div>
+          </nav>
+        </SheetContent>
+      </Sheet>
     </header>
   )
 }
