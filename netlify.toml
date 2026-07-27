@@ -1,0 +1,3 @@
+[build]
+  command = "corepack pnpm --filter web... run build"
+  publish = "apps/web/dist"

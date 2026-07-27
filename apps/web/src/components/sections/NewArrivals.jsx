@@ -1,5 +1,5 @@
 import { ProductCard } from "@/components/product/ProductCard"
-import { products } from "@/data/Products"
+import { products } from "@/data/products"
 
 export function NewArrivals() {
   return (
