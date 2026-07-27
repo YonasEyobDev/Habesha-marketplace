@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom"
 import { ProductCard } from "@/components/product/ProductCard"
-import { products } from "@/data/Products"
+import { products } from "@/data/products"
 
 const categories = [
   { label: "All", value: null },
